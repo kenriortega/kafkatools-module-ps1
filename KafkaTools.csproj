@@ -7,6 +7,7 @@
 
     <ItemGroup>
         <PackageReference Include="Confluent.Kafka" Version="2.0.2" />
+        <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
         <PackageReference Include="PowerShellStandard.Library" Version="5.1.0-preview-06">
             <PrivateAssets>All</PrivateAssets>
         </PackageReference>

@@ -11,22 +11,22 @@ namespace KafkaTools
         [Parameter(
             Position = 0,
             ValueFromPipelineByPropertyName = true)]
-        public string BootstrapServers { get; set; } = "localhost:9092";
+        public string BootstrapServers { get; set; }
 
         [Parameter(
             Position = 1,
             ValueFromPipelineByPropertyName = true)]
-        public string TopicName { get; set; } = "myTopic";
+        public string TopicName { get; set; }
 
         [Parameter(
             Position = 2,
             ValueFromPipelineByPropertyName = true)]
-        public int NumPartitions { get; set; } = 1;
+        public int NumPartitions { get; set; }
 
         [Parameter(
             Position = 3,
             ValueFromPipelineByPropertyName = true)]
-        public short ReplicationFactor { get; set; } = 1;
+        public short ReplicationFactor { get; set; }
 
 
         protected override void EndProcessing()

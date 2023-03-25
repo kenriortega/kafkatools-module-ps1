@@ -1,16 +1,31 @@
 # Kafka Tools With PowerShell
 
+Only once create manifiest *powershell* 
 
-> dotnet build
+`New-ModuleManifest -Path .\PSKafkaTools.psd1 -RootModule KafkaTools.dll`
 
-> Import-Module ./bin/Debug/netstandard2.0/KafkaTools.dll
+How to compile this solution for windows | linux | mac select your platform
+
+```bash
+dotnet publish -c Release -r win-x64 --self-contained -o ./release/out/KafkaTools
+```
+
+Import module in the powershell terminal
+
+```bash
+Import-Module  release/out/KafkaTools/KafkaTools.dll
+```
+
+Get Information about Module
+
+ `Get-Command -Module KafkaTools`
 
 
-> Get-Command -Module KafkaTools
+Remove Module
+
+`Remove-Module KafkaTools`
 
 
->  New-Topic -? 
+Resuources
 
-> Remove-Module KafkaTools
-
-> New-ModuleManifest -Path .\PSKafkaTools.psd1 -RootModule KafkaTools.dll
+ - Install poweshell on linux or mac

@@ -12,7 +12,6 @@ jobs:
       - name: Publishing
         run: |
                     $parameters = @{
-                        Name        = "KafkaTools"
                         LicenseUri  = "https://github.com/kenriortega/kafkatools-module-ps1/blob/main/LICENCE"
                         Tag         = "Kafka","tools"
                         ReleaseNote = "Frist kafka tools module very simple."

@@ -13,7 +13,7 @@ dotnet publish -c Release -r win-x64 --self-contained -o ./release/out/KafkaTool
 Import module in the powershell terminal
 
 ```bash
-Import-Module  release/out/KafkaTools/KafkaTools.dll
+Import-Module  .\release\out\KafkaTools\KafkaTools.dll
 ```
 
 Get Information about Module

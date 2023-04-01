@@ -56,8 +56,7 @@ namespace KafkaTools
             // (including non-null data).
             using (var consumer = new ConsumerBuilder<Ignore, string>(config)
                 // Note: All handlers are called on the main .Consume thread.
-                .SetErrorHandler((_, e) => Console.WriteLine($"Error: {e.Reason}"))
-                .SetStatisticsHandler((_, json) => LogKafkaStats(json)).Build())
+                .SetErrorHandler((_, e) => Console.WriteLine($"Error: {e.Reason}")).Build())
             {
                 consumer.Subscribe(TopicsName);
 
@@ -68,12 +67,7 @@ namespace KafkaTools
                     {
                         Console.WriteLine(
                             $"Reached end of topic {consumeResult.Topic}, partition {consumeResult.Partition}, offset {consumeResult.Offset}.");
-                        WriteObject(new
-                        {
-                            consumeResult.Topic,
-                            consumeResult.Partition,
-                            consumeResult.Offset
-                        });
+
                         continue;
                     }
                     WriteObject(new
@@ -104,30 +98,6 @@ namespace KafkaTools
             }   
         }
         
-        // TODO: Improve this or more better create a new cmd with only stats.
-        private void LogKafkaStats(string kafkaStatistics)
-        {
-            var stats = JsonConvert.DeserializeObject<KafkaStatistics>(kafkaStatistics);
-
-            if (stats?.topics != null && stats.topics.Count > 0)
-            {
-                foreach (var topic in stats.topics)
-                {
-                    foreach (var partition in topic.Value.Partitions)
-                    {
-                        Console.WriteLine(
-                            $"Statistics");
-
-                            WriteObject(new
-                            {
-                                topic.Value.Topic,
-                                partition.Value.Partition,
-                                partition.Value.ConsumerLag
-                            });
-                    }
-                }
-            }
-        }
     }
 
 }

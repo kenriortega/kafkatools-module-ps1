@@ -32,15 +32,15 @@ namespace KafkaTools
 
 
         protected override void EndProcessing()
-        { 
-           
-         var config = new ConsumerConfig
+        {
+
+            var config = new ConsumerConfig
             {
                 BootstrapServers = BootstrapServers,
                 GroupId = GroupId,
                 EnableAutoOffsetStore = false,
                 EnableAutoCommit = true,
-                StatisticsIntervalMs = 20*1000,
+                StatisticsIntervalMs = 5 * 1000,
                 SessionTimeoutMs = 10000,
                 AutoOffsetReset = OffsetReset == 1 ? AutoOffsetReset.Earliest : AutoOffsetReset.Latest,
                 EnablePartitionEof = true,
@@ -66,12 +66,12 @@ namespace KafkaTools
                     var consumeResult = consumer.Consume();
                     if (consumeResult.IsPartitionEOF)
                     {
-                        Console.WriteLine(
-                            $"Reached end of topic {consumeResult.Topic}, partition {consumeResult.Partition}, offset {consumeResult.Offset}.");
+                        //Console.WriteLine(
+                            //$"Reached end of topic {consumeResult.Topic}, partition {consumeResult.Partition}, offset {consumeResult.Offset}.");
 
                         continue;
                     }
- 
+
                     try
                     {
                         // Store the offset associated with consumeResult to a local cache. Stored offsets are committed to Kafka by a background thread every AutoCommitIntervalMs. 
@@ -87,32 +87,14 @@ namespace KafkaTools
                     }
                 }
 
-                
-            }   
+
+            }
         }
-        
+
         // TODO: Improve this or more better create a new cmd with only stats.
         private void LogKafkaStats(string kafkaStatistics)
         {
-            var stats = JsonConvert.DeserializeObject<KafkaStatistics>(kafkaStatistics);
-
-            if (stats?.topics != null && stats.topics.Count > 0)
-            {
-                foreach (var topic in stats.topics)
-                {
-                    foreach (var partition in topic.Value.Partitions)
-                    {
-                        Console.WriteLine( "Statistics");
-
-                            WriteObject(new
-                            {
-                                topic.Value.Topic,
-                                partition.Value.Partition,
-                                partition.Value.ConsumerLag
-                            });
-                    }
-                }
-            }
+            WriteObject(kafkaStatistics);
         }
     }
 

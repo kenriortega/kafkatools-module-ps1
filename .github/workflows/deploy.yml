@@ -13,10 +13,9 @@ jobs:
         run: |
                     $parameters = @{
                         Name        = "KafkaTools"
-                        NuGetApiKey = ${{ secrets.PSGALLERY }}
                         LicenseUri  = "https://github.com/kenriortega/kafkatools-module-ps1/blob/main/LICENCE"
                         Tag         = "Kafka","tools"
                         ReleaseNote = "Frist kafka tools module very simple."
                     }
-                    Publish-Module @parameters 
+                    Publish-Module @parameters -NuGetApiKey ${{ secrets.PSGALLERY }}
         shell: pwsh

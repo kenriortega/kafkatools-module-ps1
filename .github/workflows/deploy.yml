@@ -12,5 +12,5 @@ jobs:
       - name: Publishing
         run: |
                     ls
-                    Publish-Module -Path .\PSKafkaTools.psd1 -NuGetApiKey ${{ secrets.PSGALLERY }} -Tag "Kafka" -LicenseUri "https://github.com/kenriortega/kafkatools-module-ps1/blob/main/LICENCE"
+                    Publish-Module -Path ".\" -NuGetApiKey ${{ secrets.PSGALLERY }} -Tag "Kafka" -LicenseUri "https://github.com/kenriortega/kafkatools-module-ps1/blob/main/LICENCE"
         shell: pwsh

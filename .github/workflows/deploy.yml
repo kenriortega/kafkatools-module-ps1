@@ -5,17 +5,18 @@ on:
 jobs:
   psgallery_publish:
     runs-on: ubuntu-latest
-      - uses: actions/checkout@v1
-      - name: Setup .NET Core
-        uses: actions/setup-dotnet@v2
-        with:
-          dotnet-version: 6.0.x
-      - name: Dotnet Publish
-        run: dotnet publish -c Release --self-contained -o ./release/out/KafkaTools
-      - name: Publishing
-        run: |
-                    $parameters = @{
-                        Path        = "./release/out/KafkaTools"
-                    }
-                    Publish-Module @parameters -NuGetApiKey ${{ secrets.PSGALLERY }} -Verbose
-        shell: pwsh
+        steps:
+          - uses: actions/checkout@v1
+          - name: Setup .NET Core
+            uses: actions/setup-dotnet@v2
+            with:
+              dotnet-version: 6.0.x
+          - name: Dotnet Publish
+            run: dotnet publish -c Release --self-contained -o ./release/out/KafkaTools
+          - name: Publishing
+            run: |
+                        $parameters = @{
+                            Path        = "./release/out/KafkaTools"
+                        }
+                        Publish-Module @parameters -NuGetApiKey ${{ secrets.PSGALLERY }} -Verbose
+            shell: pwsh

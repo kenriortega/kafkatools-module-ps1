@@ -1,31 +1,61 @@
 # Kafka Tools With PowerShell
 
-Only once create manifiest *powershell* 
-
-`New-ModuleManifest -Path .\PSKafkaTools.psd1 -RootModule KafkaTools.dll`
-
-How to compile this solution for windows | linux | mac select your platform
-
-```bash
-dotnet publish -c Release -r win-x64 --self-contained -o ./release/out/KafkaTools
-```
+Install Module Go to PSGallery
 
 Import module in the powershell terminal
 
 ```bash
-Import-Module  .\release\out\KafkaTools\KafkaTools.dll
+Install-Module -Name KafkaTools
+
+# or
+
+Find-Module -Name KafkaTools | Install-Module -Force
+```
+Then import this module
+
+```bash
+Import-Module Kafkatools
 ```
 
 Get Information about Module
 
- `Get-Command -Module KafkaTools`
-
+ ```bash
+ Get-Command -Module KafkaTools
+ ```
 
 Remove Module
 
-`Remove-Module KafkaTools`
+ ```bash
+ Remove-Module -Module KafkaTools
+ ```
 
+ ### Usage
 
-Resuources
+ Create Topic
+ ```bash
+ New-KafkaTopic -BootstrapServers localhost:9092 -TopicName "name-topic"
+ ```
 
- - Install poweshell on linux or mac
+Get Topics
+ ```bash
+ Get-KafkaTopics -BootstrapServers localhost:9092
+ ```
+
+Write Msg to an specific Topic
+
+ ```bash
+ Write-KafkaMsg -BootstrapServers localhost:9092 -TopicName "topic-name" -Key "sd" -Value "value"
+ ```
+
+Watch Topic 
+
+ ```bash
+  Watch-KafkaTopic -BootstrapServers localhost:9092 -TopicName "topic-name"
+ ```
+ 
+
+Watch Stats by Topic 
+
+ ```bash
+ Watch-KafkaStatsTopic -BootstrapServers localhost:9092 -TopicName "topic-name"
+ ```

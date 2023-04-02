@@ -5,12 +5,17 @@ on:
 jobs:
   psgallery_publish:
     runs-on: ubuntu-latest
-    steps:
-      - name: checkout
-        uses: actions/checkout@v2
-        
+      - uses: actions/checkout@v1
+      - name: Setup .NET Core
+        uses: actions/setup-dotnet@v2
+        with:
+          dotnet-version: 6.0.x
+      - name: Dotnet Publish
+        run: dotnet publish -c Release --self-contained -o ./release/out/KafkaTools
       - name: Publishing
         run: |
-                    ls
-                    Publish-Module -Path ".\" -NuGetApiKey ${{ secrets.PSGALLERY }} -Tag "Kafka" -LicenseUri "https://github.com/kenriortega/kafkatools-module-ps1/blob/main/LICENCE"
+                    $parameters = @{
+                        Path        = "./release/out/KafkaTools"
+                    }
+                    Publish-Module @parameters -NuGetApiKey ${{ secrets.PSGALLERY }} -Verbose
         shell: pwsh

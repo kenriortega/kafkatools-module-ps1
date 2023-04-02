@@ -8,3 +8,4 @@ riderModule.iml
 release
 .idea/
 .vs
+publish.ps1

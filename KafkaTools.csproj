@@ -12,5 +12,7 @@
             <PrivateAssets>All</PrivateAssets>
         </PackageReference>
     </ItemGroup>
-
+	<ItemGroup>
+		<None Include="KafkaTools.psd1" CopyToOutputDirectory="Always" />
+	</ItemGroup>
 </Project>

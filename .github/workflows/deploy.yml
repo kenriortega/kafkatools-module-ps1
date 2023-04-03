@@ -20,8 +20,9 @@ jobs:
         uses: actions/setup-dotnet@v2
         with:
           dotnet-version: 6.0.x
-      - name: Dotnet Publish
+      - name: Dotnet build publish
         run: dotnet publish --self-contained true -c Release -o .\release\out\KafkaTools
+      - name: Upload to PSGallery
         run: |
                 $parameters = @{
                     Path        = ".\release\out\KafkaTools"

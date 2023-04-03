@@ -20,41 +20,11 @@ jobs:
         uses: actions/setup-dotnet@v2
         with:
           dotnet-version: 6.0.x
-      - name: Dotnet Publish OSX Compatible
-        run: dotnet publish -c Release -r osx-x64 --self-contained
-      - name: Publishing OSX
+      - name: Dotnet Publish
+        run: dotnet publish --self-contained true -c Release -o .\release\out\KafkaTools
         run: |
-                ((Get-Content -path /home/runner/work/kafkatools-module-ps1/kafkatools-module-ps1/bin/Release/netstandard2.0/osx-x64/publish/KafkaTools.psd1 -Raw) `
-                    -replace "  ModuleVersion        = $VERSION_PSGALLERY", "  ModuleVersion        = $VERSION_PSGALLERY_OSX" `
-                ) | Set-Content -Path /home/runner/work/kafkatools-module-ps1/kafkatools-module-ps1/bin/Release/netstandard2.0/osx-x64/publish/KafkaTools.psd1
                 $parameters = @{
-                    Path        = "/home/runner/work/kafkatools-module-ps1/kafkatools-module-ps1/bin/Release/netstandard2.0/osx-x64/publish"
-                }
-                Publish-Module @parameters -NuGetApiKey ${{ secrets.PSGALLERY }}
-        shell: pwsh
-
-      - name: Dotnet Publish Win
-        run: dotnet publish -c Release -r win-x64 --self-contained
-      - name: Publishing win
-        run: |
-                ((Get-Content -path /home/runner/work/kafkatools-module-ps1/kafkatools-module-ps1/bin/Release/netstandard2.0/win-x64/publish/KafkaTools.psd1 -Raw) `
-                    -replace "  ModuleVersion        = $VERSION_PSGALLERY", "  ModuleVersion        = $VERSION_PSGALLERY_WIN" `
-                ) | Set-Content -Path /home/runner/work/kafkatools-module-ps1/kafkatools-module-ps1/bin/Release/netstandard2.0/win-x64/publish/KafkaTools.psd1
-                $parameters = @{
-                    Path        = "/home/runner/work/kafkatools-module-ps1/kafkatools-module-ps1/bin/Release/netstandard2.0/win-x64/publish"
-                }
-                Publish-Module @parameters -NuGetApiKey ${{ secrets.PSGALLERY }}
-        shell: pwsh
-
-      - name: Dotnet Publish Linux
-        run: dotnet publish -c Release -r linux-x64 --self-contained
-      - name: Publishing Linux
-        run: |
-                ((Get-Content -path /home/runner/work/kafkatools-module-ps1/kafkatools-module-ps1/bin/Release/netstandard2.0/linux-x64/publish/KafkaTools.psd1 -Raw) `
-                    -replace "  ModuleVersion        = $VERSION_PSGALLERY", "  ModuleVersion        = $VERSION_PSGALLERY_LINUX" `
-                ) | Set-Content -Path /home/runner/work/kafkatools-module-ps1/kafkatools-module-ps1/bin/Release/netstandard2.0/linux-x64/publish/KafkaTools.psd1        
-                $parameters = @{
-                    Path        = "/home/runner/work/kafkatools-module-ps1/kafkatools-module-ps1/bin/Release/netstandard2.0/linux-x64/publish"
+                    Path        = ".\release\out\KafkaTools"
                 }
                 Publish-Module @parameters -NuGetApiKey ${{ secrets.PSGALLERY }}
         shell: pwsh

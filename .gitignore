@@ -9,3 +9,4 @@ release
 .idea/
 .vs
 publish.ps1
+publish.back.ps1
